@@ -13,7 +13,7 @@ public class Buyer extends Person{
      */
     public ProductMenu createProductMenu(int nProductCategory) {
         ProductMenu productMenu;
-        System.out.println("Factory pattern is implemented here");
+        System.out.println("Factory pattern is implemented");
         if(nProductCategory == 0){
              productMenu = new MeatProductMenu();
         }
