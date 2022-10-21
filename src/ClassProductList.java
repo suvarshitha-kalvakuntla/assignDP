@@ -11,6 +11,7 @@ public class ClassProductList extends ArrayList {
 
     public ClassProductList() {
         this.ListOfProducts = new ArrayList<Product>();
+        System.out.println("using iterator pattern");
         this.iterator = new ProductIterator(this    );
         File f = new File("src/ProductInfo.txt");
         try {

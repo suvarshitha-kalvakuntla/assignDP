@@ -9,19 +9,13 @@ import java.util.Scanner;
 
 public class Facade {
 
-
-
     private int UserType;
-
     private Product theSelectedProduct;
-
     private int nProductCategory;
 
     private ClassProductList theProductList;
 
     private Person thePerson;
-
-    JFrame loginFrame;
     JFrame productCategoryFrame;
     String given_username = "";
     String given_password = "";
@@ -36,6 +30,7 @@ public class Facade {
 
 
     public boolean login () {
+        JFrame loginFrame;
         System.out.println("Implementing Facade design pattern");
         JLabel userNameLabel;
         JTextField userNameText;
@@ -55,7 +50,6 @@ public class Facade {
         loginFrame.setLayout(null); //check the
         productCategoryFrame = new JFrame();
         productCategoryFrame.setLayout(null);
-
 
         resultFinal = new JLabel("Login Required!!");
         resultFinal.setBounds(150, 0, 500, 25);
@@ -81,7 +75,6 @@ public class Facade {
 
         loginFrame.add(buyer);
         loginFrame.add(seller);
-
 
         buyer.addActionListener(event -> {
             temporaryType = "buyer";
@@ -111,7 +104,6 @@ public class Facade {
         passwordText.setBounds(200, 110, 165, 25);
         loginFrame.add(passwordText);
 
-
         loginButton = new JButton(login);
         loginButton.setForeground(Color.GREEN);
         loginButton.setBounds(70, 180, 80, 25);
@@ -120,9 +112,8 @@ public class Facade {
         resetButton = new JButton();
         resetButton.setText("X");
         resetButton.setForeground(Color.RED);
-        resetButton.setBounds(300, 0, 50, 23);
+        resetButton.setBounds(400, 0, 50, 23);
         loginFrame.add(resetButton);
-
 
         resetButton.addActionListener(event -> loginFrame.setVisible(false));
         loginButton.addActionListener(event -> {
@@ -130,11 +121,23 @@ public class Facade {
 
             given_username = userNameText.getText();
             given_password = new String(passwordText.getPassword());
-            File buyerInfoFile = new File("src/BuyerInfo.txt");
-            try {
-                scanFile = new Scanner(buyerInfoFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if(UserType==0){
+                File buyerInfoFile = new File("src/BuyerInfo.txt");
+                try {
+                    scanFile = new Scanner(buyerInfoFile);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else{
+                File sellerInfoFile = new File("src/SellerInfo.txt");
+                try {
+                    scanFile = new Scanner(sellerInfoFile);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             while (scanFile.hasNextLine()) {
@@ -149,24 +152,7 @@ public class Facade {
             }
 
 
-            File sellerInfoFile = new File("src/SellerInfo.txt");
-            try {
-                scanFile = new Scanner(sellerInfoFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
 
-            while (scanFile.hasNextLine()) {
-                String data = scanFile.nextLine();
-                String[] personInfo = data.split(":");
-                database_UserName = personInfo[0];
-                database_Password = personInfo[1];
-                if (database_UserName.compareTo(given_username) == 0 && database_Password.compareTo(given_password) == 0) {   //validating the credentials
-                    flag = 1;
-
-                    break;
-                }
-            }
 
             // If neither buyer no seller credentials match the current user entered details
             if (flag == 0) {
@@ -175,6 +161,7 @@ public class Facade {
 
             //If user credentials are approved... printing list of products using iterator pattern to the console
             if (flag == 1) {
+                System.out.println("logged in sucessfully");
                 loginFrame.dispose();
                 SelectProduct();
                 theProductList = new ClassProductList();
@@ -189,12 +176,6 @@ public class Facade {
         loginFrame.setSize(500, 300);
         loginFrame.setVisible(true);
         return false;
-
-
-
-
-
-
 
 
 
@@ -223,12 +204,16 @@ public class Facade {
         }
     }
     public void SelectProduct() {
-          System.out.println("hey");
+
         JRadioButton produce = new JRadioButton("produce");
         JRadioButton meat = new JRadioButton("meat");
         ButtonGroup group = new ButtonGroup();
         group.add(produce);
         group.add(meat);
+        JLabel temp;
+        temp = new JLabel("select product type!!");
+        temp.setBounds(150, 0, 500, 25);
+        productCategoryFrame.add(temp);
 
 
         produce.setText("produce");
@@ -237,10 +222,10 @@ public class Facade {
         meat.setText("meat");
 
         // Setting Bounds of "jRadioButton2".
-        produce.setBounds(120, 30, 120, 50);
+        produce.setBounds(120, 60, 120, 50);
 
         // Setting Bounds of "jRadioButton4".
-        meat.setBounds(250, 30, 80, 50);
+        meat.setBounds(250, 60, 80, 50);
         productCategoryFrame.add(produce);
         productCategoryFrame.add(meat);
 
@@ -275,22 +260,29 @@ public class Facade {
         ArrayList<String> result = new ArrayList();
         ProductMenu p;
         int count=0;
+        System.out.println("implementing bridge pattern");
         p=thePerson.createProductMenu(nProductCategory); //bridge pattern
         result=p.showMenu(theProductList);
 
 
         JFrame f= new JFrame();
         DefaultListModel<String> l1 = new DefaultListModel<>();
-        while(count< result.size()){
+        while(count < result.size()){
             l1.addElement(result.get(count));
             count+=1;
         }
+        JLabel temp;
+        temp = new JLabel("select menu type!!");
+        temp.setBounds(150, 0, 500, 25);
+        f.add(temp);
 
         JList<String> list = new JList<>(l1);
+        JList<String> list2 = new JList<>(l1);
         JTabbedPane Menu = new JTabbedPane();
         JPanel showMenu = new JPanel();
         JPanel addToMenu = new JPanel();
         JList list1;
+
 
         Menu.setBounds(50,50,200,200);
         Menu.add("menu",showMenu);
@@ -299,6 +291,12 @@ public class Facade {
         JRadioButton radioButton1;
         list.setBounds(200,200, 75,75);
         showMenu.add(list);
+        addToMenu.add(list2);
+        JButton addButton = new JButton("ADD");
+        addButton.setForeground(Color.GREEN);
+        addButton.setBounds(80, 400, 100, 55);
+        addToMenu.add(addButton);
+
         f.setSize(400,400);
         f.setLayout(null);
         f.setVisible(true);
