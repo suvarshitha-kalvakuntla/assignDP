@@ -7,20 +7,24 @@ import java.util.ArrayList;
 public class ClassProductList extends ArrayList {
 
     public ArrayList<Product> ListOfProducts;
+    public ProductIterator iterator;
+
     public ClassProductList() {
         this.ListOfProducts = new ArrayList<Product>();
+        this.iterator = new ProductIterator(this    );
         File f = new File("src/ProductInfo.txt");
         try {
             BufferedReader reader = new BufferedReader(new FileReader(f));
             String inp;
             int itemNum = 1;
             while ((inp = reader.readLine()) != null) {
-                String[] split = inp.split(":");
+                String[] s = inp.split(":");
 
-                    this.add(new Product(split[0], split[1], this));
+                    add(new Product(s[0], s[1]));
                     itemNum++;
 
             }
+            System.out.println(ListOfProducts);
         } catch (IOException e) {
             System.out.println("check your file");
 
@@ -28,4 +32,7 @@ public class ClassProductList extends ArrayList {
 
     }
 
+    public ProductIterator getIterator() {
+        return this.iterator;
+    }
 }

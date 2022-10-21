@@ -1,3 +1,4 @@
+import java.util.Iterator;
 public interface ListIterator {
     public boolean hasNext() ;
 

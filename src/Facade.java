@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -16,7 +17,7 @@ public class Facade {
 
     private int nProductCategory;
 
-    //private ClassProductList theProductList;
+    private ClassProductList theProductList;
 
     private Person thePerson;
 
@@ -211,7 +212,8 @@ public class Facade {
                 System.out.println("Implementing Iterator pattern ....");
                 loginFrame.dispose();
                 SelectProduct();
-                ClassProductList arrayProduct = new ClassProductList();
+                theProductList = new ClassProductList();
+                createUserType();
 
                /* ClassProductList arrayProduct = new ClassProductList();
                 Iterator classProductListIterator = classProductList.createIterator();
@@ -306,6 +308,7 @@ public class Facade {
             nProductCategory = 1;
 
             productCategoryFrame.dispose();
+            productOperation();
 
         });
         meat.addActionListener(event -> {
@@ -313,6 +316,7 @@ public class Facade {
             System.out.println("meat is selected");
             nProductCategory = 0;
             productCategoryFrame.dispose();
+            productOperation();
 
         });
         productCategoryFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -325,9 +329,37 @@ public class Facade {
     }
 
     public void productOperation() {
+        ArrayList<String> result = new ArrayList();
         ProductMenu p;
-        p=thePerson.CreateProductMenu(nProductCategory); //bridge pattern
-        p.showMenu();
+        int count=0;
+        p=thePerson.createProductMenu(nProductCategory); //bridge pattern
+        result=p.showMenu(theProductList);
+
+
+        JFrame f= new JFrame();
+        DefaultListModel<String> l1 = new DefaultListModel<>();
+        while(count< result.size()){
+            l1.addElement(result.get(count));
+            count+=1;
+        }
+
+        JList<String> list = new JList<>(l1);
+        JTabbedPane Menu = new JTabbedPane();
+        JPanel showMenu = new JPanel();
+        JPanel addToMenu = new JPanel();
+        JList list1;
+
+        Menu.setBounds(50,50,200,200);
+        Menu.add("menu",showMenu);
+        Menu.add("addToMenu",addToMenu);
+        f.add(Menu);
+        JRadioButton radioButton1;
+        list.setBounds(200,200, 75,75);
+        showMenu.add(list);
+        f.setSize(400,400);
+        f.setLayout(null);
+        f.setVisible(true);
+
 
 
         //implementing bridge pattern

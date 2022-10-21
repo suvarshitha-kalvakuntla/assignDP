@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface ProductMenu {
-    public void showMenu() ;
+    public ArrayList showMenu(ClassProductList theProductList) ;
 }
