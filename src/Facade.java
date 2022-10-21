@@ -13,7 +13,7 @@ public class Facade {
 
     private int UserType;
 
-    //private Product theSelectedProduct;
+    private Product theSelectedProduct;
 
     private int nProductCategory;
 
@@ -36,7 +36,7 @@ public class Facade {
 
 
     public boolean login () {
-        //System.out.println("Implementing Facade design pattern..");
+        System.out.println("Implementing Facade design pattern");
         JLabel userNameLabel;
         JTextField userNameText;
         JLabel passwordLabel;
@@ -58,7 +58,6 @@ public class Facade {
 
 
         resultFinal = new JLabel("Login Required!!");
-        //resultFinal.setFont(new Font("Verdana", Font.BOLD, 14));
         resultFinal.setBounds(150, 0, 500, 25);
         loginFrame.add(resultFinal);
 
@@ -80,25 +79,16 @@ public class Facade {
         // Setting Bounds of "jRadioButton4".
         seller.setBounds(250, 30, 80, 50);
 
-        // Setting Bounds of "jButton".
-        //jButton.setBounds(125, 90, 80, 30);
-
-        // Setting Bounds of JLabel "L2".
-        //L1.setBounds(20, 30, 150, 50);
-
-        // "this" keyword in java refers to current object.
-        // Adding "jRadioButton2" on JFrame.
         loginFrame.add(buyer);
         loginFrame.add(seller);
 
 
         buyer.addActionListener(event -> {
-            //set whether
             temporaryType = "buyer";
             UserType = 0;
         });
         seller.addActionListener(event -> {
-            //set whether
+
             temporaryType = "seller";
             UserType = 1;
         });
@@ -132,21 +122,15 @@ public class Facade {
         resetButton.setForeground(Color.RED);
         resetButton.setBounds(300, 0, 50, 23);
         loginFrame.add(resetButton);
-//add X for close , change reset actionlistener
+
 
         resetButton.addActionListener(event -> loginFrame.setVisible(false));
-
-        //Once the login button is clicked, it validates the credentials by checking User info files
         loginButton.addActionListener(event -> {
             Scanner scanFile = null;
 
-            //Username entered by the user is stored in this variable
             given_username = userNameText.getText();
-            //Password entered by the user is stored in this variable
             given_password = new String(passwordText.getPassword());
-
-            //Check if the user is buyer
-            File buyerInfoFile = new File("C:/Users/skalvak1/Downloads/BuyerInfo.txt");
+            File buyerInfoFile = new File("src/BuyerInfo.txt");
             try {
                 scanFile = new Scanner(buyerInfoFile);
             } catch (FileNotFoundException e) {
@@ -160,22 +144,12 @@ public class Facade {
                 database_Password = personInfo[1];
                 if (database_UserName.compareTo(given_username) == 0 && database_Password.compareTo(given_password) == 0) {   //validating the credentials
                     flag = 1;
-                    //setVisible(false);
-                    //userType = 0;
-                    // user_type = UserType.Buyer;
-                    //UserInfoItem userInfoItem = new UserInfoItem();
-                    // userInfoItem.userType = user_type;
-                    // userInfoItem.name = given_username;
-                    // createUser(userInfoItem);
-                    // createProductList();
-                    //Calling productOperation function to view the user corresponding menu
-                    // productOperation();
                     break;
                 }
             }
 
-            //Check if the user is seller
-            File sellerInfoFile = new File("C:/Users/skalvak1/Downloads/SellerInfo.txt");
+
+            File sellerInfoFile = new File("src/SellerInfo.txt");
             try {
                 scanFile = new Scanner(sellerInfoFile);
             } catch (FileNotFoundException e) {
@@ -189,15 +163,7 @@ public class Facade {
                 database_Password = personInfo[1];
                 if (database_UserName.compareTo(given_username) == 0 && database_Password.compareTo(given_password) == 0) {   //validating the credentials
                     flag = 1;
-                    //userType = 1;
-                    //user_type = UserType.Seller;
-                    // UserInfoItem userInfoItem = new UserInfoItem();
-                    // userInfoItem.userType = user_type;
-                    // userInfoItem.name = given_username;
-                    // createUser(userInfoItem);
-                    // createProductList();
-                    //Calling productOperation function to view the user corresponding menu
-                    //  productOperation();
+
                     break;
                 }
             }
@@ -209,19 +175,12 @@ public class Facade {
 
             //If user credentials are approved... printing list of products using iterator pattern to the console
             if (flag == 1) {
-                System.out.println("Implementing Iterator pattern ....");
                 loginFrame.dispose();
                 SelectProduct();
                 theProductList = new ClassProductList();
                 createUserType();
 
-               /* ClassProductList arrayProduct = new ClassProductList();
-                Iterator classProductListIterator = classProductList.createIterator();
-                ProductIterator productIterator = new ProductIterator();
-                while (productIterator.hasNext(classProductListIterator)) {
-                    System.out.println(productIterator.next(classProductListIterator));
-                }
-            }*/
+
                 scanFile.close();}
         });
 
@@ -237,14 +196,7 @@ public class Facade {
 
 
 
-	/*public void addTrading() {
-        TradeOptions tradeOption = new TradeOptions();
-        tradeOption.addTrading(UserType); // parameter changed
-    }
 
-    /*
-        This function calls the viewTrading function of TradeOptions for the seller to view the products he offered
-     */
 
 
 
@@ -289,15 +241,6 @@ public class Facade {
 
         // Setting Bounds of "jRadioButton4".
         meat.setBounds(250, 30, 80, 50);
-
-        // Setting Bounds of "jButton".
-        //jButton.setBounds(125, 90, 80, 30);
-
-        // Setting Bounds of JLabel "L2".
-        //L1.setBounds(20, 30, 150, 50);
-
-        // "this" keyword in java refers to current object.
-        // Adding "jRadioButton2" on JFrame.
         productCategoryFrame.add(produce);
         productCategoryFrame.add(meat);
 
