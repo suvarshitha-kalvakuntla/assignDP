@@ -9,9 +9,13 @@ import java.util.ArrayList;
 public class MeatProductMenu implements ProductMenu {
 
 
-
+    /**
+     *displays menu based on type of product selected
+     */
     public ArrayList<String> showMenu(ClassProductList theProductList) {
-
+        System.out.println("###################################");
+        System.out.println("using iterator pattern to iterate over meat products");
+        System.out.println("###################################");
         ArrayList<String> ListOfProducts = new ArrayList<>();
         int variable = 1;
         ListIterator in = theProductList.getIterator();
