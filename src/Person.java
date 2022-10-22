@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+
 public abstract class Person {
     private ProductMenu theProductMenu;
 
     private Buyer buyer;
 
     private ProductMenu productMenu;
+
+    public ArrayList<Product> ProductList = new ArrayList<>();
 
     public void showMenu() {
 
@@ -26,4 +30,11 @@ public abstract class Person {
     }
 
     public abstract ProductMenu createProductMenu(int nProductCategory);
+    public void AddToProductList(String p){
+
+    }
+    public ArrayList<Product> getProductList(){
+        return ProductList;
+    }
+
 }

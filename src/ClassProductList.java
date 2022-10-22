@@ -11,7 +11,6 @@ public class ClassProductList extends ArrayList {
 
     public ClassProductList() {
         this.ListOfProducts = new ArrayList<Product>();
-        System.out.println("using iterator pattern");
         this.iterator = new ProductIterator(this    );
         File f = new File("src/ProductInfo.txt");
         try {
@@ -30,6 +29,12 @@ public class ClassProductList extends ArrayList {
             System.out.println("check your file");
 
         }
+
+    }
+
+    public void accept(NodeVisitor visitor) {
+        System.out.println("visitor node");
+
 
     }
 
